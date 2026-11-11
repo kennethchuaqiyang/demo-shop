@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo Shop (Site C)</title><script src="config.js"></script><style>body{font-family:Arial,sans-serif;max-width:560px;margin:40px auto;padding:0 16px}nav a{margin-right:12px}a.btn,button{display:inline-block;padding:10px 16px;background:#2563eb;color:#fff;border:0;border-radius:6px;text-decoration:none;font-size:16px;cursor:pointer}.err{color:#b91c1c}.demo{background:#f3f4f6;padding:8px;font-size:14px}li{margin:8px 0}</style></head><body>
+<h1>Demo Shop</h1><nav><a id="back-app" href="#">Back to main app</a></nav>
+<p>Public catalogue. DEMO only, no real payments. Checkout needs login.</p>
+<ul><li>Notebook - $5 <button class="add" data-item="Notebook" data-price="5">Add to cart</button></li><li>Pen - $2 <button class="add" data-item="Pen" data-price="2">Add to cart</button></li></ul>
+<p id="cartinfo">Cart: empty</p><a class="btn" id="checkout" href="checkout.html">Checkout</a>
+<script>
+document.getElementById('back-app').href=window.APP_URL;
+function cart(){try{return JSON.parse(localStorage.getItem('cart')||'[]')}catch(e){return[]}}
+function show(){var c=cart(),t=c.reduce(function(s,i){return s+i.price},0);document.getElementById('cartinfo').textContent=c.length?('Cart: '+c.length+' item(s), total $'+t):'Cart: empty';}
+document.querySelectorAll('.add').forEach(function(b){b.onclick=function(){var c=cart();c.push({item:b.dataset.item,price:Number(b.dataset.price)});localStorage.setItem('cart',JSON.stringify(c));show();};});show();
+</script></body></html>

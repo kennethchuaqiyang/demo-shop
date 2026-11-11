@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Checkout (Site C)</title><script src="config.js"></script><style>body{font-family:Arial,sans-serif;max-width:560px;margin:40px auto;padding:0 16px}nav a{margin-right:12px}a.btn,button{display:inline-block;padding:10px 16px;background:#2563eb;color:#fff;border:0;border-radius:6px;text-decoration:none;font-size:16px;cursor:pointer}.err{color:#b91c1c}.demo{background:#f3f4f6;padding:8px;font-size:14px}li{margin:8px 0}</style></head><body>
+<h1>Checkout</h1><p id="msg" class="err"></p>
+<div id="content" hidden><p>Signed in as <strong id="user"></strong>.</p><p id="summary"></p><button id="place">Place order (demo)</button><p id="done"></p><a id="back-app" href="#">Back to main app</a></div>
+<script src="auth.js"></script>
+<script>
+document.getElementById('back-app').href=window.APP_URL;
+var c=[];try{c=JSON.parse(localStorage.getItem('cart')||'[]')}catch(e){}
+var t=c.reduce(function(s,i){return s+i.price},0);
+document.getElementById('summary').textContent=c.length?('Order: '+c.map(function(i){return i.item}).join(', ')+' - total $'+t):'Your cart is empty.';
+document.getElementById('place').onclick=function(){ if(!c.length){document.getElementById('done').textContent='Cart is empty.';return;} localStorage.removeItem('cart'); document.getElementById('done').textContent='Order placed (demo). Thank you!'; };
+</script></body></html>
